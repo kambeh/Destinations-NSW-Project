@@ -1,0 +1,21 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+}
+ul#result li {
+  display: block;
+  padding: 10px 0;
+  border-bottom: 1px solid #acacac;
+}
+ul#result li:hover {
+  background-color: #fc0;
+  cursor: pointer;
+  cursor: hand;
+}
+ul#result li a {
+  color: #000;
+  margin-left: 10px;
+  position: relative;
+}
