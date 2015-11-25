@@ -1,9 +1,7 @@
 Destinations NSW Project
 ========================
 
-This program use ATLAS API to retrieve data. The required search parameters is used and data is generated from api and return to 
-
-the user interface via AJAX call.
+This program use ATLAS API to retrieve data. The required search parameters is used and data is generated from api and return to the user interface via AJAX call.
 
 The input parameter format
 --------------------------
