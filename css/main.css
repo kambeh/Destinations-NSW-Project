@@ -19,3 +19,9 @@ ul#result li a {
   margin-left: 10px;
   position: relative;
 }
+.modal-body img {
+    display: block;
+    text-align: center;
+    position: relative;
+    margin: 0 auto 10px auto;
+}

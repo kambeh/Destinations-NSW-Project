@@ -10,9 +10,11 @@
     
   <title>Page Title</title>
 
-<!-- CSS used in this page -->
-<link rel="stylesheet" href="css/font-awesome.min.css" />
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- CSS loaded from CDN -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<!-- Custom CSS used in this page -->
 <link rel="stylesheet" href="css/main.css">
 
     <!--[if lt IE 9]>
@@ -20,9 +22,9 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-<!-- include javascript library in this page -->
-<script src="js/jquery-1.11.3.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<!-- include javascript library from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!-- script src="js/ie10-viewport-bug-workaround.js"></script -->
@@ -53,10 +55,8 @@
     <div class="container">
 
       <div class="starter-template">
-        <!-- h1>Bootstrap starter template</h1> -->
         <p class="lead">Found <span></span> result(s) </p>
         <ul id="result"></ul>
-	<div id="desc"></div>
       </div>
 
         <!-- Modal Dialog -->
@@ -64,11 +64,13 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		</button>
                 <h4 class="modal-title" id="myModalLabel">Detail description</h4>
               </div>
               <div class="modal-body">
-                No description.
+                    <p>No description.</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -76,45 +78,40 @@
             </div>
           </div>
         </div>
-        
-        <!-- Button trigger modal -->
-        <!-- button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-          Launch demo modal
-        </button -->
     </div><!-- /.container -->
-
 
 <script type="text/javascript">
     $(function() {
-	// hide the desc div
-	$( "#desc" ).hide();
+        // hide the desc div
+        $( "#desc" ).hide();
 		
         $.get("http://atlas.atdw.com.au/productsearchservice.svc/products?key=2015201520159&cla=HOTEL,MOTEL,RESORT&st=NSW&rg=Blue%20Mountains&out=json", function( data ) {
             var listItem, desc;
-
-            // data returned from ajax request;
+            // data returned from ajax request
             $( ".lead span" ).append( data.numberOfResults );
             
-	   /* run thru each product from data and append it to un-ordered list
-	    *  and at the same time generate p element for it's description.
-	    */
+            /* run thru each product from data and append product's name to un-ordered list
+             * and at the same time attach click event to each list element and
+             * generate content in the modal dialog from product description.
+             */
             $.each(data.products, function(i, dat) {
-                listItem = "<li id='"+i+"'>" + dat.productName + "</li>";
-		desc = "<p id='dc"+i+"'>" + dat.productDescription + "</p>";
+                listItem = $("<li>", {id: i})
+                .text( dat.productName )
+                .click(function(){ 
+                    //dat.productImage
+                    $( ".modal-body" ).html( $("<img>", {src: dat.productImage, alt: 'loading image...'}) )
+				      .append($("<p>").text(dat.productDescription));
+                    $( "#myModal" ).modal('toggle'); 
+                });
 				
                 $( "#result" ).append(listItem);
-		$( "#desc" ).append(desc);
-                $( ".modal-body" ).html( dat.productDescription );
             });
+        }).fail(function( jqXHR, textStatus ) {
+                // if Ajax failed, alert user with status and message
+                var err = 'XmlHttpRequest: ' + textStatus + '\n' + 'Status: ' + jqXHR.status + ' ' + jqXHR.statusText;
+                $( ".lead span" ).append( 0 );
+                alert(err);
         });
-	
-		/*
-		 * attach click event to each list element and generate content in the modal dialog from description text 
-		 */
-		$('ul#result').on('click', 'li', function() {
-			$( ".modal-body" ).html( $('#desc p#dc'+$(this).attr('id')).text() );
-			$( "#myModal" ).modal('toggle');
-		});
     });
 </script>
 
