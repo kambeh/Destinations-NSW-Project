@@ -1,5 +1,3 @@
-# Destinations-NSW-Project
-
 Destinations NSW Project
 ========================
 
