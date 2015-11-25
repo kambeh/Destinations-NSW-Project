@@ -13,7 +13,7 @@ http://[api_url]/products?key=[api_key]&cla=HOTEL,MOTEL,RESORT&st=NSW&rg=Blue%20
 Web design and template
 -----------------------
 
-- The web page uses bootstrap in order to cater for wide audience who might use mobile devices to access the webpage.
-- Support reponsive layout
+- The web page uses bootstrap in order to cater for wide audiences who might use mobile devices to access the webpage.
+- Support responsive layout
 - Easy to navigate
 - Modal dialog to show detail description
